@@ -1,0 +1,6 @@
+streamlit 
+openai 
+stability-sdk 
+Pillow 
+requests 
+python-dotenv
