@@ -16,7 +16,6 @@ st.set_page_config(
 )
 
 # --- Initialize Session State ---
-# (Ensure all relevant session state variables are initialized here)
 default_session_state = {
     'generation_history': [],
     'current_text_output': "",
@@ -166,7 +165,6 @@ def add_to_history(prompt_details, text_output, agent_report, image_prompt, imag
 
 # --- Sidebar ---
 st.sidebar.header("API Key Configuration 🔑")
-st.sidebar.markdown("Use `st.secrets` for deployed apps!")
 st.session_state.openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password", value=st.session_state.openai_api_key, key="sidebar_openai_key_input")
 st.session_state.stability_api_key = st.sidebar.text_input("Stability AI API Key", type="password", value=st.session_state.stability_api_key, key="sidebar_stability_key_input")
 
@@ -325,9 +323,7 @@ elif generation_mode == "Campaign Asset Generation":
         constraints_campaign = st.text_area("Key Directives/Constraints for ALL Campaign Assets:", placeholder="e.g., Maintain an optimistic tone. Include link to landing page.", height=100, key="constraints_campaign_area")
         
         generate_images_for_campaign_cb = st.checkbox("Generate a unique AI Image for EACH text asset in the campaign?", key="gen_img_campaign_cb")
-        # Note: Individual image prompts per asset type in a campaign is a more advanced feature not added here for brevity.
-        # A generic prompt based on campaign + asset type could be used, or a single image prompt for the whole campaign.
-        # For now, if checked, we might use the campaign topic + asset type as a basic image prompt.
+
         
         submitted_campaign = st.form_submit_button("🚀 Generate Full Campaign Batch", use_container_width=True)
 
@@ -360,7 +356,6 @@ elif generation_mode == "Campaign Asset Generation":
                         st.info(f"Generating asset {asset_idx+1}/{len(content_types_campaign)}: {current_content_type_camp.replace('_',' ').title()}...")
                         
                         # For campaign mode, the "topic" for each asset is the overall campaign name/theme
-                        # Individual asset constraints could be more specific if UI allowed, here using campaign constraints
                         prompt_details_camp = {
                             'content_type': current_content_type_camp, 
                             'topic': campaign_name_campaign, # Using campaign name as the primary topic for each asset
